@@ -1,6 +1,5 @@
 import { TiquetsPendents } from "../components/TiquetsPendents";
 import { TiquetsResolts } from "../components/TiquetsResolts";
-import DatosTiquets from "../localstorage/DatosTiquets";
 
 export default function Panel() {
   return (

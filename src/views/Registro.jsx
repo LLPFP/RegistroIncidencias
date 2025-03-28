@@ -5,33 +5,53 @@ export default function Registro() {
   const [email, setEmail] = useState("");
   const [nombre, setNombre] = useState("");
   const [password, setPassword] = useState("");
+  const [mensaje, setMensaje] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const userData = {
-      id: "8",
-      email,
-      nombre,
-      password,
-    };
     const existingData =
       JSON.parse(localStorage.getItem("dades_alumnes")) || [];
+    const userExists = existingData.some((user) => user.email === email);
+
+    if (userExists) {
+      setMensaje("El usuario ya existe. Por favor, utilice otro email.");
+      return;
+    }
+
+    const userData = {
+      id: String(existingData.length + 1),
+      nombre,
+      email,
+      password,
+    };
+
     existingData.push(userData);
     localStorage.setItem("dades_alumnes", JSON.stringify(existingData));
-    console.log("Datos guardados en localStorage:", existingData);
+    setMensaje("¡Registro completado con éxito!");
+    setEmail("");
+    setNombre("");
+    setPassword("");
   };
   return (
     <>
       <main className="container mt-5">
         <div className="pt-5">
           <h1 className="w-100 text-center">Registro</h1>
+          {mensaje && (
+            <div
+              className={`mt-5 alert ${
+                mensaje.includes("éxito") ? "alert-success" : "alert-danger"
+              } text-center`}>
+              {mensaje}
+            </div>
+          )}
           <form
             onSubmit={handleSubmit}
             className="form p-4 border shadow bordered mt-5 mx-auto"
             style={{ width: "400px" }}>
             <label htmlFor="email" className="mt-2 form-label">
-              Email:{" "}
+              Email:
             </label>
             <input
               type="email"
@@ -42,7 +62,7 @@ export default function Registro() {
             />
 
             <label htmlFor="nombre" className="mt-2 form-label">
-              Nombre:{" "}
+              Nombre:
             </label>
             <input
               type="text"
@@ -53,7 +73,7 @@ export default function Registro() {
             />
 
             <label htmlFor="pass" className="mt-2 form-label">
-              Contraseña:{" "}
+              Contraseña:
             </label>
             <input
               type="password"
