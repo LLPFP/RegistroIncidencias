@@ -1,0 +1,90 @@
+const tickets = [
+  {
+    codigo: "123460",
+    fecha: "19/04/2023",
+    aula: "T8",
+    grupo: "DAW2",
+    ordenador: "PC4",
+    descripcion: "Problema de acceso a archivos",
+    alumno_id: "1",
+    resuelto: false,
+  },
+  {
+    codigo: "123461",
+    fecha: "20/04/2023",
+    aula: "T6",
+    grupo: "DAW1",
+    ordenador: "PC1",
+    descripcion: "Aplicación se cierra inesperadamente",
+    alumno_id: "2",
+    resuelto: false,
+  },
+  {
+    codigo: "123462",
+    fecha: "21/04/2023",
+    aula: "T7",
+    grupo: "DAW2",
+    ordenador: "PC2",
+    descripcion: "Problema de conexión a la red",
+    alumno_id: "3",
+    resuelto: false,
+  },
+  {
+    codigo: "123463",
+    fecha: "22/04/2023",
+    aula: "T8",
+    grupo: "DAW1",
+    ordenador: "PC3",
+    descripcion: "Archivos corruptos",
+    alumno_id: "4",
+    resuelto: false,
+  },
+  {
+    codigo: "123457",
+    fecha: "16/04/2023",
+    fechaResuelto: "15/05/2023",
+    aula: "T7",
+    grupo: "DAW2",
+    ordenador: "PC1",
+    descripcion: "Problema de conexión a Internet",
+    alumno_id: "5",
+    resuelto: true,
+  },
+  {
+    codigo: "123458",
+    fecha: "17/04/2023",
+    fechaResuelto: "15/05/2023",
+    aula: "T8",
+    grupo: "DAW1",
+    ordenador: "PC2",
+    descripcion: "Pantalla en blanco",
+    alumno_id: "6",
+    resuelto: true,
+  },
+  {
+    codigo: "123459",
+    fecha: "18/04/2023",
+    fechaResuelto: "15/05/2023",
+    aula: "T8",
+    grupo: "DAW1",
+    ordenador: "PC3",
+    descripcion: "Error de impresora",
+    alumno_id: "7",
+    resuelto: true,
+  },
+];
+
+export default tickets;
+
+export const alumnos = [
+  { id: "1", nombre: "Pedro Gómez" },
+  { id: "2", nombre: "Sofía Fernández" },
+  { id: "3", nombre: "Luis Torres" },
+  { id: "4", nombre: "Carolina Ramírez" },
+  { id: "5", nombre: "Maria López" },
+  { id: "6", nombre: "Juan Rodríguez" },
+  { id: "7", nombre: "Ana Martínez" },
+];
+
+localStorage.setItem("dades_tiquets", JSON.stringify(tickets));
+localStorage.setItem("dades_alumnes", JSON.stringify(alumnos));
