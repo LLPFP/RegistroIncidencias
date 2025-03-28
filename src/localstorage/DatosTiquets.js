@@ -77,14 +77,48 @@ const tickets = [
 export default tickets;
 
 export const alumnos = [
-  { id: "1", nombre: "Pedro Gómez" },
-  { id: "2", nombre: "Sofía Fernández" },
-  { id: "3", nombre: "Luis Torres" },
-  { id: "4", nombre: "Carolina Ramírez" },
-  { id: "5", nombre: "Maria López" },
-  { id: "6", nombre: "Juan Rodríguez" },
-  { id: "7", nombre: "Ana Martínez" },
+  {
+    id: "1",
+    nombre: "Pedro Gómez",
+    email: "pedro.gomez@example.com",
+    password: "123456",
+  },
+  {
+    id: "2",
+    nombre: "Sofía Fernández",
+    email: "sofia.fernandez@example.com",
+    password: "123456",
+  },
+  {
+    id: "3",
+    nombre: "Luis Torres",
+    email: "luis.torres@example.com",
+    password: "123456",
+  },
+  {
+    id: "4",
+    nombre: "Carolina Ramírez",
+    email: "carolina.ramirez@example.com",
+    password: "123456",
+  },
+  {
+    id: "5",
+    nombre: "Maria López",
+    email: "maria.lopez@example.com",
+    password: "123456",
+  },
+  {
+    id: "6",
+    nombre: "Juan Rodríguez",
+    email: "juan.rodriguez@example.com",
+    password: "123456",
+  },
+  {
+    id: "7",
+    nombre: "Ana Martínez",
+    email: "ana.martinez@example.com",
+    password: "123456",
+  },
 ];
-
 localStorage.setItem("dades_tiquets", JSON.stringify(tickets));
 localStorage.setItem("dades_alumnes", JSON.stringify(alumnos));
