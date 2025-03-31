@@ -40,6 +40,7 @@ export function TiquetsResolts() {
                     className="bi bi-pencil"
                     data-bs-toggle="modal"
                     data-bs-target="#exampleModal"></i>
+                  Editar
                 </button>
               </td>
               <td>
@@ -49,7 +50,7 @@ export function TiquetsResolts() {
               </td>
               <td>
                 <button className="btn btn-danger" title="Eliminar ticket">
-                  <i className="bi bi-trash3"></i>
+                  <i className="bi bi-trash3"></i>Eliminar
                 </button>
               </td>
             </tr>
