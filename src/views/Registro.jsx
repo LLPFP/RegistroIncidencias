@@ -10,25 +10,27 @@ export default function Registro() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const existingData =
+    const datosExistentes =
       JSON.parse(localStorage.getItem("dades_alumnes")) || [];
-    const userExists = existingData.some((user) => user.email === email);
+    const userExists = datosExistentes.some((user) => user.email === email);
 
     if (userExists) {
       setMensaje("El usuario ya existe. Por favor, utilice otro email.");
       return;
     }
 
-    const userData = {
-      id: String(existingData.length + 1),
+    const datosUsuario = {
+      id: String(datosExistentes.length + 1),
       nombre,
       email,
       password,
     };
 
-    existingData.push(userData);
-    localStorage.setItem("dades_alumnes", JSON.stringify(existingData));
+    datosExistentes.push(datosUsuario);
+    localStorage.setItem("dades_alumnes", JSON.stringify(datosExistentes));
     setMensaje("¡Registro completado con éxito!");
+
+    // Limpiar los campos del form del registro
     setEmail("");
     setNombre("");
     setPassword("");

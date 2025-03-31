@@ -1,26 +1,34 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-
-const dades_usuaris = [
-  { email: "user@mail.com", password: "1234" },
-  { email: "admin@mail.com", password: "admin" },
-];
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function InicioSesion() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem("Usuario");
+    if (Usuario) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const usuariValid = dades_usuaris.find(
-      (user) => user.email === email && user.password === password
+    console.log("Datos introducidos:", { email, password });
+    const usuariValid = JSON.parse(localStorage.getItem("dades_alumnes")).find(
+      (Usuario) => Usuario.email === email && Usuario.password === password
     );
 
     if (usuariValid) {
+      console.log("Usuario válido:", usuariValid);
       setError("");
-      // Aquí podríem redirigir o fer login
+      localStorage.setItem("user", JSON.stringify(usuariValid));
+      navigate("/");
     } else {
+      console.log("Error de autenticación: credenciales incorrectas");
       setError("Email o contrasenya incorrectes");
     }
   };
@@ -42,7 +50,10 @@ export default function InicioSesion() {
               className="form-control"
               placeholder="usuario@mail.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                console.log("Email introducido:", e.target.value);
+              }}
             />
 
             <label htmlFor="pass" className="mt-2 form-label">
@@ -52,7 +63,10 @@ export default function InicioSesion() {
               type="password"
               className="form-control"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                console.log("Contraseña introducida:", e.target.value);
+              }}
             />
 
             {error && <div className="text-danger mt-2">{error}</div>}
