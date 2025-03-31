@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function TiquetsResolts() {
   const tickets = JSON.parse(localStorage.getItem("dades_tiquets")) || [];
 
@@ -47,9 +49,12 @@ export function TiquetsResolts() {
                 </button>
               </td>
               <td>
-                <button className="btn btn-info" title="Ver comentarios">
-                  <i className="bi bi-chat-left-text"></i>
-                </button>
+                <Link
+                  to={`/Comentaris/${ticket.codigo}`}
+                  className="btn btn-info"
+                  title="Ver comentarios">
+                  <i className="bi bi-chat-left-text"></i>Ver
+                </Link>
               </td>
               <td>
                 <button
