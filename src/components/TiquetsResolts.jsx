@@ -25,21 +25,18 @@ export function TiquetsResolts() {
       </thead>
       <tbody>
         {tickets
-          .filter((ticket) => ticket.fechaResuelto)
+          .filter((ticket) => ticket.resuelto === true)
           .map((ticket) => (
             <tr key={ticket.codigo}>
               <td>{ticket.codigo}</td>
               <td>{ticket.fecha}</td>
               <td>{ticket.fechaResuelto}</td>
+              <td>{ticket.aula}</td>
               <td>{ticket.grupo}</td>
               <td>{ticket.ordenador}</td>
               <td>{ticket.descripcion}</td>
-              <td>{ticket.alumno}</td>
-              <td>
-                <button className="btn btn-success" title="Resolver ticket">
-                  Resolver
-                </button>
-              </td>
+              <td>{ticket.alumno_id}</td>
+              <td></td>
               <td>
                 <button className="btn btn-warning" title="Añadir comentario">
                   <i

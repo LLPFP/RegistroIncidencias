@@ -9,6 +9,22 @@ export function TiquetsPendents() {
     localStorage.setItem("dades_tiquets", JSON.stringify(filteredTickets));
     window.location.reload();
   };
+
+  const handleResolver = (codigo) => {
+    const updatedTickets = tickets.map((ticket) => {
+      if (ticket.codigo === codigo) {
+        return {
+          ...ticket,
+          resuelto: true,
+          fechaResuelto: new Date().toLocaleDateString(),
+        };
+      }
+      return ticket;
+    });
+    localStorage.setItem("dades_tiquets", JSON.stringify(updatedTickets));
+    window.location.reload();
+  };
+
   return (
     <table className="table mt-4">
       <thead>
@@ -26,7 +42,7 @@ export function TiquetsPendents() {
       </thead>
       <tbody>
         {tickets
-          .filter((ticket) => !ticket.fechaResuelto)
+          .filter((ticket) => ticket.resuelto === false)
           .map((ticket) => (
             <tr key={ticket.codigo}>
               <td>{ticket.codigo}</td>
@@ -35,9 +51,12 @@ export function TiquetsPendents() {
               <td>{ticket.grupo}</td>
               <td>{ticket.ordenador}</td>
               <td>{ticket.descripcion}</td>
-              <td>{ticket.alumno}</td>
+              <td>{ticket.alumno_id}</td>
               <td>
-                <button className="btn btn-success" title="Resolver ticket">
+                <button
+                  className="btn btn-success"
+                  title="Resolver ticket"
+                  onClick={() => handleResolver(ticket.codigo)}>
                   Resolver
                 </button>
               </td>
