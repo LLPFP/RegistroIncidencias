@@ -9,7 +9,7 @@ export default function InicioSesion() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const user = localStorage.getItem("Usuario");
+    const Usuario = localStorage.getItem("Usuario");
     if (Usuario) {
       navigate("/");
     }
@@ -25,8 +25,9 @@ export default function InicioSesion() {
     if (usuariValid) {
       console.log("Usuario válido:", usuariValid);
       setError("");
-      localStorage.setItem("user", JSON.stringify(usuariValid));
+      localStorage.setItem("Usuario", JSON.stringify(usuariValid));
       navigate("/");
+      window.location.reload();
     } else {
       console.log("Error de autenticación: credenciales incorrectas");
       setError("Email o contrasenya incorrectes");
