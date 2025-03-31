@@ -5,7 +5,6 @@ import Header from "./components/Header";
 import Panel from "./views/Panel";
 import InicioSesion from "./views/InicioSesion";
 import Registro from "./views/Registro";
-import DatosTiques from "./localstorage/DatosTiquets";
 
 function App() {
   return (

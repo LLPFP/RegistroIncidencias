@@ -1,7 +1,13 @@
 export function TiquetsResolts() {
   const tickets = JSON.parse(localStorage.getItem("dades_tiquets")) || [];
 
-  console.log(tickets);
+  const handleDelete = (codigo) => {
+    const filteredTickets = tickets.filter(
+      (ticket) => ticket.codigo !== codigo
+    );
+    localStorage.setItem("dades_tiquets", JSON.stringify(filteredTickets));
+    window.location.reload();
+  };
 
   return (
     <table className="table mt-4">
@@ -49,7 +55,10 @@ export function TiquetsResolts() {
                 </button>
               </td>
               <td>
-                <button className="btn btn-danger" title="Eliminar ticket">
+                <button
+                  className="btn btn-danger"
+                  title="Eliminar ticket"
+                  onClick={() => handleDelete(ticket.codigo)}>
                   <i className="bi bi-trash3"></i>Eliminar
                 </button>
               </td>
