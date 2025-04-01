@@ -8,14 +8,14 @@ const tickets = [
     descripcion: "Problema de acceso a archivos",
     alumno_id: "1",
     resuelto: false,
-    comentarios: {
-      Pedro: {
+    comentarios: [
+      {
         autor: "Pedro",
         fecha: "19/04/2023",
         texto:
           "Hola, he intentado resolver el problema pero no he conseguido nada. ¿Podrías ayudarme?",
       },
-    },
+    ],
   },
   {
     codigo: "123461",
@@ -26,20 +26,20 @@ const tickets = [
     descripcion: "Aplicación se cierra inesperadamente",
     alumno_id: "2",
     resuelto: false,
-    comentarios: {
-      Juan: {
+    comentarios: [
+      {
         autor: "Juan",
         fecha: "22/04/2023",
         texto:
           "He revisado el equipo y parece ser un problema de configuración de red. Lo investigaré más a fondo.",
       },
-      Maria: {
+      {
         autor: "Maria",
         fecha: "23/04/2023",
         texto:
           "He comprobado los cables de red y están correctamente conectados. Debe ser un problema de software.",
       },
-    },
+    ],
   },
   {
     codigo: "123462",
@@ -50,19 +50,19 @@ const tickets = [
     descripcion: "Problema de conexión a la red",
     alumno_id: "3",
     resuelto: false,
-    comentarios: {
-      Ana: {
+    comentarios: [
+      {
         autor: "Ana",
         fecha: "21/04/2023",
         texto:
           "He detectado que el cable de red está dañado. Procederé a reemplazarlo.",
       },
-      Carlos: {
+      {
         autor: "Carlos",
         fecha: "22/04/2023",
         texto: "Cable reemplazado. Por favor verifica si el problema persiste.",
       },
-    },
+    ],
   },
   {
     codigo: "123463",
@@ -73,18 +73,18 @@ const tickets = [
     descripcion: "Archivos corruptos",
     alumno_id: "4",
     resuelto: false,
-    comentarios: {
-      Pedro: {
+    comentarios: [
+      {
         autor: "Pedro",
         fecha: "25/04/2023",
         texto: "He revisado el equipo y necesita actualización de drivers.",
       },
-      Laura: {
+      {
         autor: "Laura",
         fecha: "26/04/2023",
         texto: "Drivers actualizados, realizando pruebas de funcionamiento.",
       },
-    },
+    ],
   },
   {
     codigo: "123457",
@@ -96,7 +96,7 @@ const tickets = [
     descripcion: "Problema de conexión a Internet",
     alumno_id: "5",
     resuelto: true,
-    comentarios: {},
+    comentarios: [],
   },
   {
     codigo: "123458",
@@ -108,7 +108,7 @@ const tickets = [
     descripcion: "Pantalla en blanco",
     alumno_id: "6",
     resuelto: true,
-    comentarios: {},
+    comentarios: [],
   },
   {
     codigo: "123459",
@@ -120,7 +120,7 @@ const tickets = [
     descripcion: "Error de impresora",
     alumno_id: "7",
     resuelto: true,
-    comentarios: {},
+    comentarios: [],
   },
 ];
 

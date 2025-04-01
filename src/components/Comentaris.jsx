@@ -2,19 +2,17 @@ import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export function Comentaris() {
-  const { id } = useParams();
+  const { codigo } = useParams();
   const [ticket, setTicket] = useState(null);
   const [comentarios, setComentarios] = useState([]);
 
   useEffect(() => {
-    // Get ticket data from localStorage
     const tickets = JSON.parse(localStorage.getItem("dades_tiquets")) || [];
-    const foundTicket = tickets.find((ticket) => ticket.codigo === id);
+    const foundTicket = tickets.find((ticket) => ticket.codigo === codigo);
 
     if (foundTicket) {
       setTicket(foundTicket);
 
-      // Convert the comentarios object to an array
       if (foundTicket.comentarios) {
         const comentariosArray = Object.values(foundTicket.comentarios);
         setComentarios(comentariosArray);
@@ -22,7 +20,7 @@ export function Comentaris() {
         setComentarios([]);
       }
     }
-  }, [id]);
+  }, [codigo]);
 
   return (
     <div className="container">
@@ -37,8 +35,11 @@ export function Comentaris() {
       </h2>
 
       <div className="text-end">
-        <Link className="btn btn-success" to={`/Comentari/${id}`}>
-          Añadir comentario
+        <Link
+          to={`/Comentari/${ticket?.codigo}`}
+          className="btn btn-success"
+          title="Comentar">
+          <i className="bi bi-chat-left-text"></i>Añadir comentario
         </Link>
         <div className="mt-4">
           {comentarios.length > 0 ? (

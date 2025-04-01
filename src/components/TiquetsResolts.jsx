@@ -7,6 +7,7 @@ export function TiquetsResolts() {
     const filteredTickets = tickets.filter(
       (ticket) => ticket.codigo !== codigo
     );
+
     localStorage.setItem("dades_tiquets", JSON.stringify(filteredTickets));
     window.location.reload();
   };
