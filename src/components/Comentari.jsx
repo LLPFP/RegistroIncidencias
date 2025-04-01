@@ -38,7 +38,7 @@ export function Comentari() {
     <div className="container mt-5">
       <div className="d-flex mt-5 justify-content-between">
         <h1>Añadir comentario</h1>
-        <Link className="btn btn-secondary mb-5" to="/">
+        <Link className="btn btn-secondary mb-5" to={`/Comentaris/${codigo}`}>
           Volver
         </Link>
       </div>
