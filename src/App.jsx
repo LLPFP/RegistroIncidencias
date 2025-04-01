@@ -8,6 +8,7 @@ import Registro from "./views/Registro";
 import { Comentaris } from "./components/Comentaris";
 import { Comentari } from "./components/Comentari";
 import { Tiquet } from "./views/Tiquet";
+import { AdminUsuaris } from "./views/AdminUsuaris";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/Comentaris/:codigo" element={<Comentaris />} />
         <Route path="/Comentari/:codigo" element={<Comentari />} />
         <Route path="/Tiquet" element={<Tiquet />} />
+        <Route path="/AdminUsuaris" element={<AdminUsuaris />} />
       </Routes>
     </Router>
   );

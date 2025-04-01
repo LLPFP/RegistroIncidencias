@@ -10,6 +10,12 @@ export default function Header() {
             <Link className="btn btn-primary ms-2" aria-current="page" to="/">
               PANEL
             </Link>
+            <Link
+              className="btn btn-primary ms-2"
+              aria-current="page"
+              to="/AdminUsuaris">
+              Admin Usuaris
+            </Link>
             {!localStorage.getItem("Usuario") && (
               <>
                 <Link
