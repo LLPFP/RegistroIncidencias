@@ -9,7 +9,6 @@ import { Comentaris } from "./components/Comentaris";
 import { Comentari } from "./components/Comentari";
 import { Tiquet } from "./views/Tiquet";
 import { AdminUsuaris } from "./views/AdminUsuaris";
-
 function App() {
   return (
     <Router>

@@ -5,26 +5,25 @@ import { getDadesAlumnes, setDadesAlumnes } from "../funciones/Funciones";
 
 export function AdminUsuaris() {
   const [usuaris, setUsuaris] = useState(getDadesAlumnes());
-
   const [rol, setRol] = useState();
 
   console.log(usuaris);
 
-  const handleChangeRol = (e) => {
+  const handleChangeRol = (e, id) => {
     const nuevoRol = e.target.value;
 
-    usuaris.forEach((usuari) => {
-      if (usuari.id === e.target.id) {
-        usuari.rol = nuevoRol;
-        usuaris.push(usuari);
-        setDadesAlumnes(usuaris);
-        return;
+    const usuariosActualizado = usuaris.map((usuari) => {
+      if (usuari.id === id) {
+        return { ...usuari, rol: nuevoRol };
       }
+      return usuari;
     });
 
-    console.log(nuevoRol);
+    setUsuaris(usuariosActualizado);
+    setDadesAlumnes(usuariosActualizado);
 
-    console.log(usuaris);
+    console.log(nuevoRol);
+    console.log(usuariosActualizado);
   };
 
   const eliminarUsuari = (id) => {
@@ -52,11 +51,9 @@ export function AdminUsuaris() {
               <td>{usuari.email}</td>
               <td>
                 <select
-                  name=""
-                  id=""
                   className="form-select form-select-sm"
-                  onChange={handleChangeRol}
-                  value={usuari.rol}>
+                  value={usuari.rol}
+                  onChange={(e) => handleChangeRol(e, usuari.id)}>
                   <option value="Alumno">Alumno</option>
                   <option value="Profesor">Profesor</option>
                   <option value="Administrador">Administrador</option>
