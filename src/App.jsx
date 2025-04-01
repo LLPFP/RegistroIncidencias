@@ -7,6 +7,7 @@ import InicioSesion from "./views/InicioSesion";
 import Registro from "./views/Registro";
 import { Comentaris } from "./components/Comentaris";
 import { Comentari } from "./components/Comentari";
+import { Tiquet } from "./views/Tiquet";
 
 function App() {
   return (
@@ -16,9 +17,9 @@ function App() {
         <Route path="/" element={<Panel />} />
         <Route path="/IniciarSesion" element={<InicioSesion />} />
         <Route path="/Registro" element={<Registro />} />
-
         <Route path="/Comentaris/:codigo" element={<Comentaris />} />
         <Route path="/Comentari/:codigo" element={<Comentari />} />
+        <Route path="/Tiquet" element={<Tiquet />} />
       </Routes>
     </Router>
   );

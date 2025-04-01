@@ -1,7 +1,7 @@
 const tickets = [
   {
-    codigo: "123460",
-    fecha: "19/04/2023",
+    codigo: "1",
+    fecha: "19/4/2023",
     aula: "T8",
     grupo: "DAW2",
     ordenador: "PC4",
@@ -11,15 +11,15 @@ const tickets = [
     comentarios: [
       {
         autor: "Pedro",
-        fecha: "19/04/2023",
+        fecha: "19/4/2023",
         texto:
           "Hola, he intentado resolver el problema pero no he conseguido nada. ¿Podrías ayudarme?",
       },
     ],
   },
   {
-    codigo: "123461",
-    fecha: "20/04/2023",
+    codigo: "2",
+    fecha: "20/4/2023",
     aula: "T6",
     grupo: "DAW1",
     ordenador: "PC1",
@@ -29,21 +29,21 @@ const tickets = [
     comentarios: [
       {
         autor: "Juan",
-        fecha: "22/04/2023",
+        fecha: "22/4/2023",
         texto:
           "He revisado el equipo y parece ser un problema de configuración de red. Lo investigaré más a fondo.",
       },
       {
         autor: "Maria",
-        fecha: "23/04/2023",
+        fecha: "23/4/2023",
         texto:
           "He comprobado los cables de red y están correctamente conectados. Debe ser un problema de software.",
       },
     ],
   },
   {
-    codigo: "123462",
-    fecha: "21/04/2023",
+    codigo: "3",
+    fecha: "21/4/2023",
     aula: "T7",
     grupo: "DAW2",
     ordenador: "PC2",
@@ -53,20 +53,20 @@ const tickets = [
     comentarios: [
       {
         autor: "Ana",
-        fecha: "21/04/2023",
+        fecha: "21/4/2023",
         texto:
           "He detectado que el cable de red está dañado. Procederé a reemplazarlo.",
       },
       {
         autor: "Carlos",
-        fecha: "22/04/2023",
+        fecha: "22/4/2023",
         texto: "Cable reemplazado. Por favor verifica si el problema persiste.",
       },
     ],
   },
   {
-    codigo: "123463",
-    fecha: "22/04/2023",
+    codigo: "4",
+    fecha: "22/4/2023",
     aula: "T8",
     grupo: "DAW1",
     ordenador: "PC3",
@@ -76,20 +76,20 @@ const tickets = [
     comentarios: [
       {
         autor: "Pedro",
-        fecha: "25/04/2023",
+        fecha: "25/4/2023",
         texto: "He revisado el equipo y necesita actualización de drivers.",
       },
       {
         autor: "Laura",
-        fecha: "26/04/2023",
+        fecha: "26/4/2023",
         texto: "Drivers actualizados, realizando pruebas de funcionamiento.",
       },
     ],
   },
   {
-    codigo: "123457",
-    fecha: "16/04/2023",
-    fechaResuelto: "15/05/2023",
+    codigo: "5",
+    fecha: "16/4/2023",
+    fechaResuelto: "15/5/2023",
     aula: "T7",
     grupo: "DAW2",
     ordenador: "PC1",
@@ -99,9 +99,9 @@ const tickets = [
     comentarios: [],
   },
   {
-    codigo: "123458",
-    fecha: "17/04/2023",
-    fechaResuelto: "15/05/2023",
+    codigo: "6",
+    fecha: "17/4/2023",
+    fechaResuelto: "15/5/2023",
     aula: "T8",
     grupo: "DAW1",
     ordenador: "PC2",
@@ -111,9 +111,9 @@ const tickets = [
     comentarios: [],
   },
   {
-    codigo: "123459",
-    fecha: "18/04/2023",
-    fechaResuelto: "15/05/2023",
+    codigo: "7",
+    fecha: "18/4/2023",
+    fechaResuelto: "15/5/2023",
     aula: "T8",
     grupo: "DAW1",
     ordenador: "PC3",
