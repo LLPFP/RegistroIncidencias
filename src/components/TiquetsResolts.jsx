@@ -50,7 +50,7 @@ export function TiquetsResolts() {
                       to={`/Editar/${ticket.codigo}`}
                       className="btn btn-warning"
                       title="Editar ticket">
-                      <i className="bi bi-pencil"></i>Editar
+                      <i className="bi bi-pencil me-2"></i>Editar
                     </Link>
                   )}
               </td>
@@ -59,7 +59,7 @@ export function TiquetsResolts() {
                   to={`/Comentaris/${ticket.codigo}`}
                   className="btn btn-info"
                   title="Ver comentarios">
-                  <i className="bi bi-chat-left-text"></i>Ver
+                  <i className="bi bi-chat-left-text me-2"></i>Ver
                 </Link>
               </td>
               <td>
@@ -72,7 +72,7 @@ export function TiquetsResolts() {
                       className="btn btn-danger"
                       title="Eliminar ticket"
                       onClick={() => handleDelete(ticket.codigo)}>
-                      <i className="bi bi-trash3"></i>Eliminar
+                      <i className="bi bi-trash3 me-2"></i>Eliminar
                     </button>
                   )}
               </td>
