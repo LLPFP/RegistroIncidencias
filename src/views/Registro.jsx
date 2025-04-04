@@ -24,6 +24,7 @@ export default function Registro() {
       nombre,
       email,
       password,
+      rol: "Alumno",
     };
 
     datosExistentes.push(datosUsuario);

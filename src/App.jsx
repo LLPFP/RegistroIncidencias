@@ -9,6 +9,8 @@ import { Comentaris } from "./components/Comentaris";
 import { Comentari } from "./components/Comentari";
 import { Tiquet } from "./views/Tiquet";
 import { AdminUsuaris } from "./views/AdminUsuaris";
+import Editar from "./components/Editar";
+
 function App() {
   return (
     <Router>
@@ -20,6 +22,7 @@ function App() {
         <Route path="/Comentaris/:codigo" element={<Comentaris />} />
         <Route path="/Comentari/:codigo" element={<Comentari />} />
         <Route path="/Tiquet" element={<Tiquet />} />
+        <Route path="/Editar/:codigo" element={<Editar />} />
         <Route path="/AdminUsuaris" element={<AdminUsuaris />} />
       </Routes>
     </Router>

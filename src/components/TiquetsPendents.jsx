@@ -55,21 +55,30 @@ export function TiquetsPendents() {
               <td>{ticket.descripcion}</td>
               <td>{ticket.alumno_id}</td>
               <td>
-                <button
-                  className="btn btn-success"
-                  title="Resolver ticket"
-                  onClick={() => handleResolver(ticket.codigo)}>
-                  Resolver
-                </button>
+                {localStorage.getItem("Usuario") &&
+                  JSON.parse(localStorage.getItem("Usuario")).rol ===
+                    "Administrador" && (
+                    <button
+                      className="btn btn-success"
+                      title="Resolver ticket"
+                      onClick={() => handleResolver(ticket.codigo)}>
+                      Resolver
+                    </button>
+                  )}
               </td>
               <td>
-                <button className="btn btn-warning" title="Añadir comentario">
-                  <i
-                    className="bi bi-pencil"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"></i>
-                  Editar
-                </button>
+                {localStorage.getItem("Usuario") &&
+                  (JSON.parse(localStorage.getItem("Usuario")).rol ===
+                    "Administrador" ||
+                    JSON.parse(localStorage.getItem("Usuario")).id ===
+                      ticket.alumno_id) && (
+                    <Link
+                      to={`/Editar/${ticket.codigo}`}
+                      className="btn btn-warning"
+                      title="Editar ticket">
+                      <i className="bi bi-pencil"></i>Editar
+                    </Link>
+                  )}
               </td>
               <td>
                 <Link
@@ -80,12 +89,18 @@ export function TiquetsPendents() {
                 </Link>
               </td>
               <td>
-                <button
-                  className="btn btn-danger"
-                  title="Eliminar ticket"
-                  onClick={() => handleDelete(ticket.codigo)}>
-                  <i className="bi bi-trash3"></i>Eliminar
-                </button>
+                {localStorage.getItem("Usuario") &&
+                  (JSON.parse(localStorage.getItem("Usuario")).rol ===
+                    "Administrador" ||
+                    JSON.parse(localStorage.getItem("Usuario")).id ===
+                      ticket.alumno_id) && (
+                    <button
+                      className="btn btn-danger"
+                      title="Eliminar ticket"
+                      onClick={() => handleDelete(ticket.codigo)}>
+                      <i className="bi bi-trash3"></i>Eliminar
+                    </button>
+                  )}
               </td>
             </tr>
           ))}

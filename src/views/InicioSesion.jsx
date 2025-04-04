@@ -25,7 +25,15 @@ export default function InicioSesion() {
     if (usuariValid) {
       console.log("Usuario válido:", usuariValid);
       setError("");
-      localStorage.setItem("Usuario", JSON.stringify(usuariValid));
+
+      localStorage.setItem(
+        "Usuario",
+        JSON.stringify({
+          id: usuariValid.id,
+          email: usuariValid.email,
+          rol: usuariValid.rol,
+        })
+      );
       navigate("/");
       window.location.reload();
     } else {

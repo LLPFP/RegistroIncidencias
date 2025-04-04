@@ -26,13 +26,61 @@ export function Comentaris() {
     <div className="container">
       <div className="d-flex mt-5 justify-content-between">
         <h1>Comentarios</h1>
-        <Link className="btn btn-secondary" to="/">
+        <Link
+          className="btn btn-secondary d-flex align-items-center gap-2"
+          to="/">
+          <i className="bi bi-arrow-left"></i>
           Volver
-        </Link>
+        </Link>{" "}
       </div>
       <h2 className="my-4">
         Código ticket: <span>{ticket?.codigo || "Cargando..."}</span>
       </h2>
+      {/* Información adicional del ticket */}
+      {ticket && (
+        <div className="mb-4 card p-4 bg-light">
+          <h3 className="border-bottom pb-2 mb-4">Información del Ticket</h3>
+          <div className="row">
+            <div className="col-md-6">
+              <div className="mb-3">
+                <strong className="text-primary">Problema:</strong>
+                <p className="ms-2">{ticket.descripcion || "No disponible"}</p>
+              </div>
+              <div className="mb-3">
+                <strong className="text-primary">Estado:</strong>
+                <span
+                  className={`ms-2 badge ${
+                    ticket.resuelto ? "bg-success" : "bg-warning"
+                  }`}>
+                  {ticket.resuelto ? "Resuelto" : "Pendiente"}
+                </span>
+              </div>
+              <div className="mb-3">
+                <strong className="text-primary">Fecha de creación:</strong>
+                <p className="ms-2">{ticket.fecha || "No disponible"}</p>
+              </div>
+              <div className="mb-3">
+                <strong className="text-primary">Alumno ID:</strong>
+                <p className="ms-2">{ticket.alumno_id || "No disponible"}</p>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="mb-3">
+                <strong className="text-primary">Aula:</strong>
+                <p className="ms-2">{ticket.aula || "No disponible"}</p>
+              </div>
+              <div className="mb-3">
+                <strong className="text-primary">Grupo:</strong>
+                <p className="ms-2">{ticket.grupo || "No disponible"}</p>
+              </div>
+              <div className="mb-3">
+                <strong className="text-primary">Ordenador:</strong>
+                <p className="ms-2">{ticket.ordenador || "No disponible"}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="text-end">
         <Link
