@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import supabase from "../utils/supabase";
 import { useNavigate } from "react-router-dom";
