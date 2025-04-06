@@ -1,26 +1,46 @@
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import supabase from "../utils/supabase";
 
 export function Comentaris() {
-  const { codigo } = useParams();
+  const { id } = useParams();
   const [ticket, setTicket] = useState(null);
   const [comentarios, setComentarios] = useState([]);
 
   useEffect(() => {
-    const tickets = JSON.parse(localStorage.getItem("dades_tiquets")) || [];
-    const foundTicket = tickets.find((ticket) => ticket.codigo === codigo);
+    const fetchTicket = async () => {
+      const { data, error } = await supabase
+        .from("dades_tiquets")
+        .select("*")
+        .eq("id", id)
+        .single();
 
-    if (foundTicket) {
-      setTicket(foundTicket);
-
-      if (foundTicket.comentarios) {
-        const comentariosArray = Object.values(foundTicket.comentarios);
-        setComentarios(comentariosArray);
-      } else {
-        setComentarios([]);
+      if (error) {
+        console.error("Error obteniendo el ticket:", error.message);
+        return;
       }
-    }
-  }, [codigo]);
+
+      setTicket(data);
+    };
+
+    const fetchComentarios = async () => {
+      const { data, error } = await supabase
+        .from("comentarios")
+        .select("*")
+        .eq("ticket_id", id)
+        .order("fecha", { ascending: false });
+
+      if (error) {
+        console.error("Error obteniendo los comentarios:", error.message);
+        return;
+      }
+
+      setComentarios(data);
+    };
+
+    fetchTicket();
+    fetchComentarios();
+  }, [id]);
 
   return (
     <div className="container">
@@ -29,14 +49,14 @@ export function Comentaris() {
         <Link
           className="btn btn-secondary d-flex align-items-center gap-2"
           to="/">
-          <i className="bi bi-arrow-left"></i>
-          Volver
-        </Link>{" "}
+          <i className="bi bi-arrow-left"></i> Volver
+        </Link>
       </div>
+
       <h2 className="my-4">
-        Código ticket: <span>{ticket?.codigo || "Cargando..."}</span>
+        Código ticket: <span>{ticket?.id}</span>
       </h2>
-      {/* Información adicional del ticket */}
+
       {ticket && (
         <div className="mb-4 card p-4 bg-light">
           <h3 className="border-bottom pb-2 mb-4">Información del Ticket</h3>
@@ -84,26 +104,27 @@ export function Comentaris() {
 
       <div className="text-end">
         <Link
-          to={`/Comentari/${ticket?.codigo}`}
+          to={`/Comentari/${ticket?.id}`}
           className="btn btn-success"
           title="Comentar">
-          <i className="bi bi-chat-left-text"></i>Añadir comentario
+          <i className="bi bi-chat-left-text"></i> Añadir comentario
         </Link>
-        <div className="mt-4">
-          {comentarios.length > 0 ? (
-            comentarios.map((comentario, index) => (
-              <div key={index} className="card p-3 mb-3">
-                <h5 className="text-end">
-                  Autor: <span>{comentario.autor}</span>
-                  <span className="ms-4">{comentario.fecha}</span>
-                </h5>
-                <p>{comentario.texto}</p>
-              </div>
-            ))
-          ) : (
-            <p>No hay comentarios para este ticket.</p>
-          )}
-        </div>
+      </div>
+
+      <div className="mt-4">
+        {comentarios.length > 0 ? (
+          comentarios.map((comentario) => (
+            <div key={comentario.id} className="card p-3 mb-3">
+              <h5 className="text-end">
+                Autor: <span>{comentario.autor}</span>
+                <span className="ms-4">{comentario.fecha}</span>
+              </h5>
+              <p>{comentario.texto}</p>
+            </div>
+          ))
+        ) : (
+          <p>No hay comentarios para este ticket.</p>
+        )}
       </div>
     </div>
   );

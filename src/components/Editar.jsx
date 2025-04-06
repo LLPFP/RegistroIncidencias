@@ -1,30 +1,65 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import supabase from "../utils/supabase";
 
 export default function Editar() {
-  const { codigo } = useParams(); // Obtén el código del ticket desde la URL
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [ticket, setTicket] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [mensaje, setMensaje] = useState("");
 
   useEffect(() => {
-    const tickets = JSON.parse(localStorage.getItem("dades_tiquets")) || [];
-    const foundTicket = tickets.find((ticket) => ticket.codigo === codigo);
+    const fetchTicket = async () => {
+      const { data, error } = await supabase
+        .from("dades_tiquets")
+        .select("*")
+        .eq("id", id)
+        .single();
 
-    if (foundTicket) {
-      setTicket(foundTicket); // Establece el ticket encontrado en el estado
-    }
-  }, [codigo]);
+      if (error) {
+        console.error("Error al obtener el ticket:", error.message);
+        return;
+      }
+
+      setTicket(data);
+      setLoading(false);
+    };
+
+    fetchTicket();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setTicket((prevState) => ({
-      ...prevState,
+    setTicket((prev) => ({
+      ...prev,
       [name]: value,
     }));
   };
 
-  if (!ticket) {
-    return <p>Cargando datos del ticket...</p>;
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { error } = await supabase
+      .from("dades_tiquets")
+      .update({
+        descripcion: ticket.descripcion,
+        aula: ticket.aula,
+        grupo: ticket.grupo,
+        ordenador: ticket.ordenador,
+      })
+      .eq("id", id);
+
+    if (error) {
+      console.error("Error al actualizar el ticket:", error.message);
+    } else {
+      setMensaje("¡Cambios guardados!");
+      setTimeout(() => navigate("/Pendents"), 1500); // redirige tras 1.5s
+    }
+  };
+
+  if (loading) return <p>Cargando datos del ticket...</p>;
 
   return (
     <div className="container mt-5">
@@ -33,7 +68,8 @@ export default function Editar() {
           <div className="card">
             <div className="card-body">
               <h2 className="text-center mb-4">Editar Ticket</h2>
-              <form>
+              {mensaje && <div className="alert alert-success">{mensaje}</div>}
+              <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                   <label htmlFor="descripcion" className="form-label">
                     Descripción
@@ -43,7 +79,7 @@ export default function Editar() {
                     className="form-control"
                     id="descripcion"
                     name="descripcion"
-                    value={ticket.descripcion}
+                    value={ticket.descripcion || ""}
                     onChange={handleChange}
                   />
                 </div>
@@ -56,7 +92,7 @@ export default function Editar() {
                     className="form-control"
                     id="aula"
                     name="aula"
-                    value={ticket.aula}
+                    value={ticket.aula || ""}
                     onChange={handleChange}
                   />
                 </div>
@@ -69,26 +105,34 @@ export default function Editar() {
                     className="form-control"
                     id="grupo"
                     name="grupo"
-                    value={ticket.grupo}
+                    value={ticket.grupo || ""}
                     onChange={handleChange}
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="grupo" className="form-label">
+                  <label htmlFor="ordenador" className="form-label">
                     PC
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="pc"
-                    name="pc"
-                    value={ticket.ordenador}
+                    id="ordenador"
+                    name="ordenador"
+                    value={ticket.ordenador || ""}
                     onChange={handleChange}
                   />
                 </div>
-                <button type="submit" className="btn btn-primary">
-                  Guardar Cambios
-                </button>
+                <div className="d-flex gap-2">
+                  <button type="submit" className="btn btn-primary">
+                    Guardar Cambios
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => navigate("/")}>
+                    Volver
+                  </button>
+                </div>
               </form>
             </div>
           </div>

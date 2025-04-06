@@ -1,6 +1,48 @@
-import { Link } from "react-router-dom"; // Asegúrate de usar react-router-dom
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import supabase from "../utils/supabase";
+import { useEffect, useState } from "react";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState(null);
+  const [userRol, setUserRol] = useState(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        setUserEmail(user.email);
+        setUserRol(user.user_metadata?.rol);
+      }
+    };
+
+    getUser();
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        const user = session?.user;
+        setUserEmail(user?.email);
+        setUserRol(user?.user_metadata?.rol);
+      }
+    );
+
+    return () => {
+      listener?.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (!error) {
+      setUserEmail(null);
+      setUserRol(null);
+      navigate("/IniciarSesion");
+    }
+  };
+
   return (
     <header>
       <nav className="navbar navbar-light bg-light">
@@ -10,18 +52,17 @@ export default function Header() {
             <Link className="btn btn-primary ms-2" aria-current="page" to="/">
               PANEL
             </Link>
-            {localStorage.getItem("Usuario") &&
-              JSON.parse(localStorage.getItem("Usuario")).rol ===
-                "Administrador" && (
-                <Link
-                  className="btn btn-primary ms-2"
-                  aria-current="page"
-                  to="/AdminUsuaris">
-                  Admin Usuaris
-                </Link>
-              )}
 
-            {!localStorage.getItem("Usuario") && (
+            {userEmail && userRol === "Administrador" && (
+              <Link
+                className="btn btn-primary ms-2"
+                aria-current="page"
+                to="/AdminUsuaris">
+                Admin Usuaris
+              </Link>
+            )}
+
+            {!userEmail && (
               <>
                 <Link
                   className="btn btn-primary ms-2"
@@ -39,21 +80,12 @@ export default function Header() {
             )}
           </div>
           <div>
-            <span>
-              {JSON.parse(localStorage.getItem("Usuario") || '""').email}
-            </span>
+            <span>{userEmail}</span>
           </div>
-          {localStorage.getItem("Usuario") && (
-            <Link
-              className="btn btn-danger ms-2"
-              aria-current="page"
-              onClick={() => {
-                localStorage.removeItem("Usuario");
-                window.location.reload();
-                window.location.replace("/IniciarSesion");
-              }}>
+          {userEmail && (
+            <button className="btn btn-danger ms-2" onClick={handleSignOut}>
               Cerrar Sesión
-            </Link>
+            </button>
           )}
         </div>
       </nav>

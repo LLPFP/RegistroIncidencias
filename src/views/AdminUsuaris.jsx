@@ -1,38 +1,82 @@
-/* eslint-disable no-unused-vars */
-
-import React, { useState } from "react";
-import { getDadesAlumnes, setDadesAlumnes } from "../funciones/Funciones";
+import React, { useEffect, useState } from "react";
+import supabase from "../utils/supabase";
 
 export function AdminUsuaris() {
-  const [usuaris, setUsuaris] = useState(getDadesAlumnes());
-  const [rol, setRol] = useState();
+  const [usuaris, setUsuaris] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  console.log(usuaris);
+  useEffect(() => {
+    const fetchUsuaris = async () => {
+      const { data, error } = await supabase.from("dades_alumnes").select("*");
+      if (error) {
+        console.error("Error cargando usuarios:", error.message);
+      } else {
+        setUsuaris(data);
+      }
+      setLoading(false);
+    };
 
-  const handleChangeRol = (e, id) => {
+    fetchUsuaris();
+  }, []);
+
+  const handleChangeRol = async (e, id) => {
     const nuevoRol = e.target.value;
 
-    const usuariosActualizado = usuaris.map((usuari) => {
-      if (usuari.id === id) {
-        return { ...usuari, rol: nuevoRol };
-      }
-      return usuari;
-    });
+    const { error } = await supabase
+      .from("dades_alumnes")
+      .update({ rol: nuevoRol })
+      .eq("id", id);
 
-    setUsuaris(usuariosActualizado);
-    setDadesAlumnes(usuariosActualizado);
+    if (error) {
+      console.error("Error actualizando rol:", error.message);
+      return;
+    }
 
-    console.log(nuevoRol);
-    console.log(usuariosActualizado);
+    setUsuaris((prev) =>
+      prev.map((usuari) =>
+        usuari.id === id ? { ...usuari, rol: nuevoRol } : usuari
+      )
+    );
   };
 
-  const eliminarUsuari = (id) => {
-    setUsuaris(usuaris.filter((usuari) => usuari.id !== id));
+  const handleChangeField = async (e, id, field) => {
+    const newValue = e.target.value;
+
+    const { error } = await supabase
+      .from("dades_alumnes")
+      .update({ [field]: newValue })
+      .eq("id", id);
+
+    if (error) {
+      console.error(`Error actualizando ${field}:`, error.message);
+      return;
+    }
+
+    setUsuaris((prev) =>
+      prev.map((usuari) =>
+        usuari.id === id ? { ...usuari, [field]: newValue } : usuari
+      )
+    );
   };
+
+  const eliminarUsuari = async (id) => {
+    const { error } = await supabase
+      .from("dades_alumnes")
+      .delete()
+      .eq("id", id);
+    if (error) {
+      console.error("Error eliminando usuario:", error.message);
+      return;
+    }
+
+    setUsuaris((prev) => prev.filter((usuari) => usuari.id !== id));
+  };
+
+  if (loading) return <p className="mt-5">Cargando usuarios...</p>;
 
   return (
     <div className="container mt-5">
-      <h1 className="mt-3">Panell de Gestió d’Usuaris</h1>
+      <h1 className="mt-3">Panell de Gestió d'Usuaris</h1>
       <table className="table table-striped table-hover table-bordered mt-5">
         <thead className="table-dark">
           <tr>
@@ -47,8 +91,22 @@ export function AdminUsuaris() {
           {usuaris.map((usuari) => (
             <tr key={usuari.id}>
               <td>{usuari.id}</td>
-              <td>{usuari.nombre}</td>
-              <td>{usuari.email}</td>
+              <td>
+                <input
+                  type="text"
+                  className="form-control form-control-sm"
+                  value={usuari.nombre}
+                  onChange={(e) => handleChangeField(e, usuari.id, "nombre")}
+                />
+              </td>
+              <td>
+                <input
+                  type="email"
+                  className="form-control form-control-sm"
+                  value={usuari.email}
+                  onChange={(e) => handleChangeField(e, usuari.id, "email")}
+                />
+              </td>
               <td>
                 <select
                   className="form-select form-select-sm"

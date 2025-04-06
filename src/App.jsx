@@ -19,10 +19,10 @@ function App() {
         <Route path="/" element={<Panel />} />
         <Route path="/IniciarSesion" element={<InicioSesion />} />
         <Route path="/Registro" element={<Registro />} />
-        <Route path="/Comentaris/:codigo" element={<Comentaris />} />
-        <Route path="/Comentari/:codigo" element={<Comentari />} />
+        <Route path="/Comentaris/:id" element={<Comentaris />} />
+        <Route path="/Comentari/:id" element={<Comentari />} />
         <Route path="/Tiquet" element={<Tiquet />} />
-        <Route path="/Editar/:codigo" element={<Editar />} />
+        <Route path="/Editar/:id" element={<Editar />} />
         <Route path="/AdminUsuaris" element={<AdminUsuaris />} />
       </Routes>
     </Router>
