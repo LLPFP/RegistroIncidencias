@@ -10,7 +10,7 @@ export function TiquetsResolts() {
   const fetchTickets = async () => {
     const { data, error } = await supabase
       .from("dades_tiquets")
-      .select("*")
+      .select("*, dades_alumnes(email)")
       .eq("resuelto", true);
     if (!error) setTickets(data);
   };
@@ -94,7 +94,7 @@ export function TiquetsResolts() {
             <td>{ticket.grupo}</td>
             <td>{ticket.ordenador}</td>
             <td>{ticket.descripcion}</td>
-            <td>{ticket.alumno_id}</td>
+            <td>{ticket.dades_alumnes?.email}</td>
             <td>
               {(userRole === "Administrador" ||
                 usuario?.id === ticket.alumno_id) && (
