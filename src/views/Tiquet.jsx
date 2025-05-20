@@ -23,8 +23,7 @@ export function Tiquet() {
       return;
     }
 
-    const fechaActual = new Date().toLocaleDateString();
-
+    const fechaActual = new Date().toISOString().split("T")[0];
     const { data, error } = await supabase.from("dades_tiquets").insert([
       {
         fecha: fechaActual,
@@ -57,7 +56,8 @@ export function Tiquet() {
         <div
           className={`alert mt-4 ${
             mensaje.includes("éxito") ? "alert-success" : "alert-danger"
-          }`}>
+          }`}
+        >
           {mensaje}
         </div>
       )}
@@ -65,19 +65,21 @@ export function Tiquet() {
         <button
           type="button"
           className="btn btn-secondary"
-          onClick={() => navigate("/")}>
+          onClick={() => navigate("/")}
+        >
           Volver
         </button>
         <form
           onSubmit={handleSubmit}
           className="form p-4 border shadow bordered mt-5 mx-auto"
-          style={{ width: "400px" }}>
+          style={{ width: "400px" }}
+        >
           <label className="mt-2 form-label">Aula:</label>
           <input
             type="text"
             className="form-control"
             placeholder="T7"
-            value={"T" + aula}
+            value={aula}
             onChange={(e) => setAula(e.target.value)}
             required
           />
@@ -86,7 +88,7 @@ export function Tiquet() {
           <input
             type="text"
             className="form-control"
-            value={"G" + grupo}
+            value={grupo}
             onChange={(e) => setGrupo(e.target.value)}
             required
           />
@@ -95,7 +97,7 @@ export function Tiquet() {
           <input
             type="text"
             className="form-control"
-            value={"PC" + ordenador}
+            value={ordenador}
             onChange={(e) => setOrdenador(e.target.value)}
             required
           />

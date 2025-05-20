@@ -90,7 +90,7 @@ export function TiquetsPendents() {
     }
   };
 
-  return (
+  return usuario ? (
     <table className="table mt-4">
       <thead>
         <tr>
@@ -120,7 +120,8 @@ export function TiquetsPendents() {
                 <button
                   className="btn btn-success"
                   title="Resolver ticket"
-                  onClick={() => handleResolver(ticket.id)}>
+                  onClick={() => handleResolver(ticket.id)}
+                >
                   <i className="bi bi-check-circle me-2"></i>
                   Resolver
                 </button>
@@ -132,7 +133,8 @@ export function TiquetsPendents() {
                 <Link
                   to={`/Editar/${ticket.id}`}
                   className="btn btn-warning"
-                  title="Editar ticket">
+                  title="Editar ticket"
+                >
                   <i className="bi bi-pencil me-2"></i>Editar
                 </Link>
               )}
@@ -141,7 +143,8 @@ export function TiquetsPendents() {
               <Link
                 to={`/Comentaris/${ticket.id}`}
                 className="btn btn-info"
-                title="Ver comentarios">
+                title="Ver comentarios"
+              >
                 <i className="bi bi-chat-left-text me-2"></i>Ver
               </Link>
             </td>
@@ -151,7 +154,8 @@ export function TiquetsPendents() {
                 <button
                   className="btn btn-danger"
                   title="Eliminar ticket"
-                  onClick={() => handleDelete(ticket.id)}>
+                  onClick={() => handleDelete(ticket.id)}
+                >
                   <i className="bi bi-trash3 me-2"></i>Eliminar
                 </button>
               )}
@@ -160,5 +164,9 @@ export function TiquetsPendents() {
         ))}
       </tbody>
     </table>
+  ) : (
+    <div className="alert alert-danger mt-4">
+      No tienes permisos para ver este contenido
+    </div>
   );
 }
